@@ -1,0 +1,37 @@
+##########################################################
+#                                                        #
+#             Gitignore for Online Blackjack game        #
+#                                                        #
+# *I decided on a white listing apporach for this file*  #
+##########################################################
+
+########################################
+#                                      #
+#          Root of file path           #
+#                                      #
+########################################
+
+# Include the root of the project file
+!/
+
+# Exclude everything inside of project
+/*
+
+########################################
+#                                      #
+#   Main Flask files and directories   #
+#                                      #
+########################################
+!flaskr/
+
+########################################
+#                                      #
+#                 Misc.                #
+#                                      #
+########################################
+
+# Other
+**/__pycache__
+!README.md
+!.gitignore
+
