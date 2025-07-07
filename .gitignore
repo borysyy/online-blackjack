@@ -30,8 +30,12 @@
 #                                      #
 ########################################
 
+!requirements.in
+!requirements.txt
+
 # Other
 **/__pycache__
+.python-version
 !README.md
 !.gitignore
 
