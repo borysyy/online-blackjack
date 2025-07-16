@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Room {{ room_code }} {% endblock %}
+
+
+{% block main %}
+
+<div id="players">
+
+    {% for player in room_data.players %}
+        <li>
+            {{ player }}
+        </li>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+
+
+
+
+{% block script %}
+
+     <script type="text/javascript" charset="utf-8">
+            let socket = io();
+            const roomCode = "{{ room_code }}";
+            const username = "{{ username }}";
+
+            socket.emit('join_room', { room: roomCode });
+            socket.on('user_joined', (data) => {
+                const playerList = $("#players");
+                const li = $("<li>");
+                li.text(data.username + " joined the room");
+                playerList.append(li);
+            });
+
+
+        
+     </script>
+{% endblock %}

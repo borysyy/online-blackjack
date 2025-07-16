@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+
+<div>
+    <h1>Hello {{ username }}</h1>
+
+    <form action="/create-room" enctype="multipart/form-data" method="post">
+        <button>Create a room</button>
+    </form>
+
+    <br>
+
+    <form action="/join-room" enctype="multipart/form-data" method="post">
+        <input type="text" name="roomCode" placeholder="Room Code">
+        <button>Join a room</button>
+    </form>
+
+</div>
+
+
+{% endblock %}

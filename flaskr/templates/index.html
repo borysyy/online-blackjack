@@ -5,11 +5,18 @@
 
 {% block main %}
 
+
 <div>
-    <input id="msg" autocomplete="off">
-    <button onclick="sendMessage()">Send</button>
-    <ul id="messages"></ul>
+    <h1 id="roomHeading">Join or create a room</h1>
+
+    <form action="/create-user" enctype="multipart/form-data" method="post">
+        <input name="username" placeholder="Username">
+        <button id="submit">Create a user</button>
+    </form>
 </div>
 
 
 {% endblock %}
+
+
+    </head>

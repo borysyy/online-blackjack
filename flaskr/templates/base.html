@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html data-bs-theme="dark">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,26 +15,7 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
         
-        <script type="text/javascript" charset="utf-8">
-            var socket = io();
-
-            socket.on('connect', function() {
-                console.log('Connected');
-            });
-
-            socket.on('message', function(msg) {
-                const li = $("<li>").text(msg);
-                $("#messages").append(li);
-            });
-
-            function sendMessage() {
-                const msg = $("#msg").val();
-                socket.send(msg);
-                $("#msg").val('');
-            }
-                
-        </script>
-    </head>
+       
     <body>
 
         <main>
@@ -42,6 +23,6 @@
         </main>
       
         
-        <script src="" async defer></script>
+        {% block script %} {% endblock %}
     </body>
 </html>
