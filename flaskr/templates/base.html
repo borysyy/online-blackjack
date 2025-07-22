@@ -15,11 +15,19 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
         
+        {% block style %} {% endblock %}
        
-    <body>
+    <body 
+        class="d-flex flex-column min-vh-100 min-vw-100"
+        style="padding-top: 3.75rem"
+    >
 
-        <main>
-            {% block main %} {% endblock %}
+        <main class="d-flex flex-column flex-grow-1 flex-shrink-1">
+
+            <div class="flex-grow-1 flex-shrink-1">
+                {% block main %}{% endblock %}
+            </div>
+
         </main>
       
         

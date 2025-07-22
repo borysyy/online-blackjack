@@ -31,15 +31,12 @@ def join_create():
 @app.route('/create-room', methods=['POST'])
 def create_room():
     room_code = generate_room_code(rooms)
-    username = session.get('username')
-    rooms[room_code] = {'players': [username]}
+    rooms[room_code] = {'players': []}
     return redirect(url_for('room', room_code=room_code))
 
 @app.route('/join-room', methods=['POST'])
 def join_room_route():
     room_code = request.form.get('roomCode').upper()
-    username = session.get('username')
-    rooms[room_code]['players'].append(username)
     return redirect(url_for('room', room_code=room_code))
 
 @app.route('/room/<room_code>', methods=['GET', 'POST'])
@@ -54,10 +51,19 @@ def room(room_code):
 def handle_join(data):
     room = data['room']
     username = session.get('username')
-    join_room(room)
-    emit('user_joined', {'username': username}, room=room)
-    
-    
+        
+    if username not in rooms[room]['players']:
+        rooms[room]['players'].append(username)
+        join_room(room)
+        emit('user_joined', {'username': username}, room=room, include_self=False)
+        emit('room_state', {'players': rooms[room]['players']}, room=room)
+        
+@socketio.on('check_state')
+def room_state(data):
+    room = data['room']
+    players = rooms[room]['players']
+    emit('room_state', {'players': players}, to=request.sid)
+
     
 
 # @socketio.on('join_room')

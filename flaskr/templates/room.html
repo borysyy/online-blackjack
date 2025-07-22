@@ -3,18 +3,45 @@
 
 {% block title %} Room {{ room_code }} {% endblock %}
 
+{% block style %}
+
+<style>
+    /*
+    .game-area {
+    
+        width: 500px;
+        height: 500px;
+        background-color: white;
+    }
+
+    */
+
+</style>
+
+
+
+{% endblock %}
+
 
 {% block main %}
 
-<div id="players">
+    <div class="new">
+    </div>
 
-    {% for player in room_data.players %}
-        <li>
-            {{ player }}
-        </li>
-    {% endfor %}
+    <div class="d-flex justify-content-center align-items-center">
+        <div id="game-area">
+            
+            <div class="player-area">
+            
+            
+               
+            </div>
+        
+        </div>
 
-</div>
+    </div>
+
+
 
 {% endblock %}
 
@@ -24,17 +51,42 @@
 {% block script %}
 
      <script type="text/javascript" charset="utf-8">
-            let socket = io();
+
+        $(function() {
+
+            const game_area = $('#game-area');
+            let player_area = $('.player-area');
+            
             const roomCode = "{{ room_code }}";
-            const username = "{{ username }}";
+
+            let socket = io();
 
             socket.emit('join_room', { room: roomCode });
             socket.on('user_joined', (data) => {
-                const playerList = $("#players");
-                const li = $("<li>");
-                li.text(data.username + " joined the room");
-                playerList.append(li);
+                 let new_user = data.username;
+         
+                 $('.new').append(`HELLO ${new_user}`);
             });
+
+
+            socket.on('room_state', (data) => {
+                player_area.empty();
+                data.players.forEach((username) => {
+                    const html = `
+                        <div data-player="${username}"> 
+                            <div> 
+                                <h1>${username}</h1>
+                            </div>
+                        </div>
+                        `;
+                        player_area.append(html);
+                });
+            });
+            socket.emit('check_state', { room: roomCode });
+                
+        });
+
+          
 
 
         
