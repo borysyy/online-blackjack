@@ -30,6 +30,10 @@
 
     <div class="d-flex justify-content-center align-items-center">
         <div id="game-area">
+
+             <form action="/start-game" enctype="multipart/form-data" method="post">
+                <button>Create a room</button>
+            </form>
             
             <div class="player-area">
             
@@ -64,7 +68,7 @@
             socket.emit('join_room', { room: roomCode });
             socket.on('user_joined', (data) => {
                  let new_user = data.username;
-         
+        
                  $('.new').append(`HELLO ${new_user}`);
             });
 

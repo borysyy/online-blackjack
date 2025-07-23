@@ -1,12 +1,15 @@
+import sys
 from utils import generate_room_code
 from flask import Flask, render_template, redirect, url_for, request, session
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
 
+sys.path.append('./game')
+
+from game.initialize import initialize_game
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'random'
 socketio = SocketIO(app, manage_session=True)
-
 
 rooms = {}
 
@@ -46,6 +49,14 @@ def room(room_code):
     if request.method == 'GET':
         room_data = rooms[room_code]
         return render_template('room.html', room_data=room_data, room_code=room_code)
+    
+@app.route('/start-game', methods=['POST'])
+def start_game():
+    shoe = initialize_game()
+    print(shoe)
+    
+    return 'Hello'
+    
 
 @socketio.on('join_room')
 def handle_join(data):
