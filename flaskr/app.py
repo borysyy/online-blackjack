@@ -50,13 +50,20 @@ def room(room_code):
         room_data = rooms[room_code]
         return render_template('room.html', room_data=room_data, room_code=room_code)
     
-@app.route('/start-game', methods=['POST'])
-def start_game():
+# @app.route('/start-game', methods=['POST'])
+# def start_game():
+#     shoe = initialize_game()
+#     print(shoe)
+    
+#     return 'Hello'
+
+@socketio.on('start_game')
+def handle_start(data):
+    room = data['room']
     shoe = initialize_game()
-    print(shoe)
     
-    return 'Hello'
-    
+    emit('game_initialization', {'shoe': shoe}, room=room)
+
 
 @socketio.on('join_room')
 def handle_join(data):
