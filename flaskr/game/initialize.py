@@ -1,5 +1,3 @@
-
-
 from classes.card import Cards
 from classes.hand import Hand
 

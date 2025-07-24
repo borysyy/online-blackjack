@@ -6,6 +6,7 @@ from flask_socketio import SocketIO, send, emit, join_room, leave_room
 sys.path.append('./game')
 
 from game.initialize import initialize_game
+from classes.blackjack import BlackJack
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'random'
@@ -62,7 +63,14 @@ def handle_start(data):
     room = data['room']
     shoe = initialize_game()
     
-    emit('game_initialization', {'shoe': shoe}, room=room)
+    blackjack = BlackJack(shoe, rooms[room]['players'])
+    
+    blackjack.burn()
+    
+    blackjack.add_cut_card()
+    
+    
+    emit('game_initialization', {'shoe': blackjack.shoe}, room=room)
 
 
 @socketio.on('join_room')
