@@ -35,7 +35,7 @@ def join_create():
 @app.route('/create-room', methods=['POST'])
 def create_room():
     room_code = generate_room_code(rooms)
-    rooms[room_code] = {'players': []}
+    rooms[room_code] = {'players': {}}
     return redirect(url_for('room', room_code=room_code))
 
 @app.route('/join-room', methods=['POST'])
@@ -63,14 +63,17 @@ def handle_start(data):
     room = data['room']
     shoe = initialize_game()
     
+    rooms[room]['players']['dealer'] = {}
+    
     blackjack = BlackJack(shoe, rooms[room]['players'])
     
     blackjack.burn()
-    
     blackjack.add_cut_card()
     
+    blackjack.initialize_hands()
     
-    emit('game_initialization', {'shoe': blackjack.shoe}, room=room)
+    
+    # emit('game_initialization', {'shoe': blackjack.players}, room=room)
 
 
 @socketio.on('join_room')
@@ -79,7 +82,7 @@ def handle_join(data):
     username = session.get('username')
         
     if username not in rooms[room]['players']:
-        rooms[room]['players'].append(username)
+        rooms[room]['players'][username] = {}
         join_room(room)
         emit('user_joined', {'username': username}, room=room, include_self=False)
         emit('room_state', {'players': rooms[room]['players']}, room=room)

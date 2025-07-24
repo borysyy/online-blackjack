@@ -20,7 +20,7 @@ class Cards:
             'a': [1, 11]
         }
     
-    def create_deck(decks):
+    def create_deck(self, decks):
         
         deck = []
         
@@ -38,7 +38,7 @@ class Cards:
         return deck
     
     
-    def shuffle(deck):
+    def shuffle(self, deck):
         currentIndex = len(deck)
         randomIndex = 0
         

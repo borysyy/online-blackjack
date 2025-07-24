@@ -3,7 +3,7 @@ from classes.hand import Hand
 
  
 def initialize_game():
-    cards = Cards
+    cards = Cards()
     decks = cards.create_deck(6)
     shoe = cards.shuffle(decks)
     

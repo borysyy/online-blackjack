@@ -19,3 +19,29 @@ class BlackJack:
         
         cut = len(self.shoe) - randomCutIndex 
         self.shoe.insert(cut, cutCard)
+        
+    def initialize_hands(self):
+        
+        for username, playerData in self.players.items():
+            playerData['hand'] = Hand()
+        
+        dealerHand = Hand(isDealer = True)
+        
+        self.players['dealer']['hand'] = dealerHand
+        
+        for _ in range(2):
+            for username, playerData in self.players.items():
+                card = self.get_card()
+                playerData['hand'].addCard(card)
+        
+     
+                   
+                
+    
+    def get_card(self):
+        card = self.shoe.pop(0)
+        
+        return card
+    
+        
+            

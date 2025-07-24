@@ -71,6 +71,7 @@
             });
 
 
+            /*
             socket.on('room_state', (data) => {
                 player_area.empty();
                 data.players.forEach((username) => {
@@ -85,7 +86,7 @@
                 });
             });
             socket.emit('check_state', { room: roomCode });
-
+                        */
 
             socket.on('game_initialization', (data) => {
                 let shoe = data.shoe;
